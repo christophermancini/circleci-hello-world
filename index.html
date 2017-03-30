@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="CircleCI Hello World is a sample application demonstrating how you can use CircleCI to continuously test and deploy your application.">
+    <meta name="author" content="Christopher Mancini">
+    <link rel="icon" href="https://d3r49iyjzglexf.cloudfront.net/favicon-066b37ff00f0f968b903c13ae88b5573b62665aea8fbe91bb61c55dfa9446523.ico">
+
+    <title>CircleCI Hello World</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="https://v4-alpha.getbootstrap.com/examples/narrow-jumbotron/narrow-jumbotron.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="header clearfix">
+        <h3 class="text-muted">CircleCI Hello World</h3>
+      </div>
+
+      <div class="jumbotron">
+        <h1 class="display-3">Welcome!</h1>
+        <p class="lead">Which continuous integration and delivery platform is the best?</p>
+        <p><a class="btn btn-lg btn-success" href="#" role="button" id="the_button">Find out now!</a></p>
+        <div class="alert alert-danger" role="alert" style="display: none;">
+          <strong>Error!</strong> <span id="message"></span>
+        </div>
+        <div class="alert alert-success" role="alert" style="display: none;">
+          <strong><span id="message" class="display-2"></span></strong>
+        </div>
+      </div>
+
+      <footer class="footer">
+        <p>&copy; <a href="http://mancini.io">Christopher Mancini</a> 2017</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="https://v4-alpha.getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
+
+    <script>
+      $(document).ready(function(){
+        $('#the_button').click(function(){
+          $('.alert').hide();
+
+          $.post("main.php", {button_clicked: true})
+          .done(function(data) {
+            if (data.success) {
+              $('.alert-success #message').html(data.message)
+              $('.alert-success').show();
+            } else {
+              $('.alert-danger #message').html(data.message)
+              $('.alert-danger').show();
+            }
+          })
+          .fail(function(xhr, testStatus, errorThrown) {
+              $('.alert-danger #message').html(xhr.responseText)
+              $('.alert-danger').show();
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
