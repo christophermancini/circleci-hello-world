@@ -1,0 +1,22 @@
+machine:
+  php:
+    version: 7.1
+
+dependencies:
+  cache_directories:
+    - vendor
+
+  pre:
+    - sudo composer self-update
+    - composer install --prefer-dist
+
+    - composer get-selenium
+    - 'composer run-selenium > /dev/null 2>&1':
+          background: true
+
+    - 'composer serve > server.log 2>&1':
+          background: true
+
+test:
+  override:
+    - composer test
