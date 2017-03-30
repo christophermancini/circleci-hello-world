@@ -10,8 +10,7 @@ dependencies:
     - sudo composer self-update
     - composer install --prefer-dist
 
-    - composer get-selenium
-    - 'composer run-selenium > /dev/null 2>&1':
+    - 'composer phantomjs > /dev/null 2>&1':
           background: true
 
     - 'composer serve > server.log 2>&1':
