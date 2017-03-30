@@ -6,5 +6,6 @@ Feature: Big button
   Scenario: Test Click
     Given I am on "/"
     And I click the "#the_button" button - to reveal a hidden element
-    Then I should see an ".alert-success" element
+    Then I wait for the ajax response
+    And I should see an ".alert-success" element
     And "#message" element should contain "CircleCI"

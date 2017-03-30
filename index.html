@@ -26,10 +26,10 @@
       <div class="jumbotron">
         <h1 class="display-3">Welcome!</h1>
         <p class="lead">Which continuous integration and delivery platform is the best?</p>
-        <p><a class="btn btn-lg btn-success" href="#" role="button" id="the_button">Find out now!</a></p>
-        <div class="alert alert-danger" role="alert" style="display: none;">
-          <strong>Error!</strong> <span id="message"></span>
-        </div>
+        <p>
+          <button id="the_button" type="button" class="btn btn-lg btn-success">Find out now!</button>
+        </p>
+        <div class="alert alert-danger" role="alert" style="display: none;"></div>
         <div class="alert alert-success" role="alert" style="display: none;">
           <strong><span id="message" class="display-2"></span></strong>
         </div>
@@ -51,26 +51,26 @@
     <script src="https://v4-alpha.getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
 
     <script>
-      $(document).ready(function(){
-        $('#the_button').click(function(){
-          $('.alert').hide();
+    $(document).ready(function(){
+      $('#the_button').click(function(){
+        $('.alert').hide();
 
-          $.post("main.php", {button_clicked: true})
-          .done(function(data) {
-            if (data.success) {
-              $('.alert-success #message').html(data.message)
-              $('.alert-success').show();
-            } else {
-              $('.alert-danger #message').html(data.message)
-              $('.alert-danger').show();
-            }
-          })
-          .fail(function(xhr, testStatus, errorThrown) {
-              $('.alert-danger #message').html(xhr.responseText)
-              $('.alert-danger').show();
-          });
+        $.post("main.php", {button_clicked: true})
+        .done(function(data) {
+          if (data.success) {
+            $('.alert-success #message').html(data.message)
+            $('.alert-success').show();
+          } else {
+            $('.alert-danger').html('<strong>Error!</strong> ' + data.message)
+            $('.alert-danger').show();
+          }
+        })
+        .fail(function(xhr, testStatus, errorThrown) {
+            $('.alert-danger').html('<strong>Error!</strong> ' + xhr.responseText)
+            $('.alert-danger').show();
         });
       });
+    });
     </script>
   </body>
 </html>

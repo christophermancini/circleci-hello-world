@@ -36,15 +36,7 @@ class FeatureContext extends MinkContext
     {
         $this->assertElementOnPage($arg1);
         $this->assertElementContainsText($arg1, 'Find out now!');
-        $this->clickLink(substr($arg1, 1));
-    }
-
-    /**
-     * @Then I should see an :arg1 element
-     */
-    public function iShouldSeeAnElement($arg1)
-    {
-        $this->assertElementOnPage($arg1);
+        $this->pressButton(substr($arg1, 1));
     }
 
     /**
@@ -52,6 +44,15 @@ class FeatureContext extends MinkContext
      */
     public function elementShouldContain($arg1, $arg2)
     {
+        $this->assertElementOnPage($arg1);
         $this->assertElementContainsText($arg1, $arg2);
+    }
+
+    /**
+     * @Then I wait for the ajax response
+     */
+    public function iWaitForTheAjaxResponse()
+    {
+        $this->getSession()->wait(5000, "(typeof jQuery != 'undefined' && 0 === jQuery.active)");
     }
 }
