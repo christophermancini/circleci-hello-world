@@ -12,3 +12,4 @@ if (empty($_POST['button_clicked'])) {
 }
 
 print(json_encode($response));
+exit;
