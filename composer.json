@@ -6,6 +6,7 @@
         "behat/mink-extension": "^2.2"
     },
     "scripts": {
+        "deploy": "rsync -rvzp ./* cmancini@mancini.io:/var/www/circleci-hello-world/",
         "gen-steps": "vendor/bin/behat --dry-run --append-snippets",
         "phantomjs": "phantomjs --webdriver=4444",
         "serve": "php -S localhost:8080",

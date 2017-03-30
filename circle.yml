@@ -24,4 +24,4 @@ deployment:
   production:
     branch: master
     commands:
-      - rsync -rvzp ./* cmancini@mancini.io:/var/www/circleci-hello-world/
+      - composer deploy
