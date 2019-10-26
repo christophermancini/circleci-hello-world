@@ -9,8 +9,7 @@ blocks:
     task:
       prologue:
         commands:
-          - sudo composer self-update
-          - composer install --prefer-dist
+          - cache restore - composer install --prefer-dist - cache store
       jobs:
         - name: make lint
           commands:
