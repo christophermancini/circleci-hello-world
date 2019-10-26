@@ -1,0 +1,79 @@
+version: v1.0
+name: First pipeline
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+blocks:
+  - name: Lint
+    task:
+      prologue:
+        commands:
+          - checkout
+          - cache restore
+          - composer install --prefer-dist
+          - cache store
+      jobs:
+        - name: make lint
+          commands:
+            - echo "lint your codes"
+    dependencies: []
+  - name: Unit tests
+    task:
+      prologue:
+        commands:
+          - checkout
+      jobs:
+        - name: Unit tests 1/3
+          commands:
+            - echo "run 1/3"
+        - name: Unit tests 2/3
+          commands:
+            - echo "run 2/3"
+        - name: Unit tests 3/3
+          commands:
+            - echo "run 3/3"
+    dependencies:
+      - Lint
+      - VulnerabilityScan
+  - name: Integration tests
+    dependencies:
+      - Lint
+      - VulnerabilityScan
+    task:
+      jobs:
+        - name: 'Job #1'
+          commands:
+            - echo "run da tests"
+  - name: Benchmarks
+    dependencies:
+      - Lint
+      - VulnerabilityScan
+    task:
+      jobs:
+        - name: 'Job #1'
+          commands: []
+  - name: VulnerabilityScan
+    dependencies: []
+    task:
+      jobs:
+        - name: 'Job #1'
+          commands: []
+  - name: Build Binary
+    dependencies:
+      - Lint
+      - VulnerabilityScan
+    task:
+      jobs:
+        - name: 'Job #1'
+          commands: []
+  - name: Deliver Binary
+    dependencies:
+      - Benchmarks
+      - Build Binary
+      - Integration tests
+      - Unit tests
+    task:
+      jobs:
+        - name: 'Job #1'
+          commands: []
