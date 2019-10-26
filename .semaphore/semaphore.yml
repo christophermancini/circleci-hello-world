@@ -9,13 +9,14 @@ blocks:
     task:
       prologue:
         commands:
+          - checkout
           - cache restore
           - composer install --prefer-dist
           - cache store
       jobs:
         - name: make lint
           commands:
-            - echo "lint your code"
+            - echo "lint your codes"
   - name: Unit tests
     task:
       prologue:
