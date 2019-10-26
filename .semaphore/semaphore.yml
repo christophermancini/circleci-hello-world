@@ -17,6 +17,7 @@ blocks:
         - name: make lint
           commands:
             - echo "lint your codes"
+    dependencies: []
   - name: Unit tests
     task:
       prologue:
@@ -32,3 +33,47 @@ blocks:
         - name: Unit tests 3/3
           commands:
             - echo "run 3/3"
+    dependencies:
+      - Lint
+      - VulnerabilityScan
+  - name: Integration tests
+    dependencies:
+      - Lint
+      - VulnerabilityScan
+    task:
+      jobs:
+        - name: 'Job #1'
+          commands:
+            - echo "run da tests"
+  - name: Benchmarks
+    dependencies:
+      - Lint
+      - VulnerabilityScan
+    task:
+      jobs:
+        - name: 'Job #1'
+          commands: []
+  - name: VulnerabilityScan
+    dependencies: []
+    task:
+      jobs:
+        - name: 'Job #1'
+          commands: []
+  - name: Build Binary
+    dependencies:
+      - Lint
+      - VulnerabilityScan
+    task:
+      jobs:
+        - name: 'Job #1'
+          commands: []
+  - name: Deliver Binary
+    dependencies:
+      - Benchmarks
+      - Build Binary
+      - Integration tests
+      - Unit tests
+    task:
+      jobs:
+        - name: 'Job #1'
+          commands: []
