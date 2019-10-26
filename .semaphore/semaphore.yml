@@ -9,7 +9,9 @@ blocks:
     task:
       prologue:
         commands:
-          - cache restore - composer install --prefer-dist - cache store
+          - cache restore
+          - composer install --prefer-dist
+          - cache store
       jobs:
         - name: make lint
           commands:
